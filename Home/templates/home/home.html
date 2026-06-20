@@ -1,0 +1,244 @@
+{% extends 'home/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    <!-- ===== HERO ===== -->
+    <section class="az-hero" id="header">
+    <div class="az-hero__bg"></div>
+    <div class="az-hero__overlay"></div>
+    <div class="az-hero__content">
+        <p class="az-hero__eyebrow">Restaurante &amp; Bar</p>
+        <h1 class="az-hero__title">
+        <span class="az-hero__title--bold">Azotea</span>
+        </h1>
+        <p class="az-hero__subtitle">Una experiencia gastronómica en las alturas de Medellín</p>
+        <div class="az-hero__actions">
+        <a href="#menu" class="az-btn az-btn--primary">Ver Menú</a>
+        <a href="#reservas" class="az-btn az-btn--outline">Reservar Mesa</a>
+        </div>
+    </div>
+    <div class="az-hero__scroll">
+        <span></span>
+        <p>Descubrir</p>
+    </div>
+    </section>
+    
+    <!-- ===== BIENVENIDA ===== -->
+    <section class="az-welcome">
+    <div class="az-welcome__deco az-welcome__deco--left">&#8212;</div>
+    <div class="az-welcome__body">
+        <span class="az-label">Nuestra Historia</span>
+        <h2 class="az-section-title">Cocina de autor<br>con alma paisa</h2>
+        <p class="az-welcome__text">
+        En Azotea combinamos ingredientes locales de temporada con técnicas modernas
+        para crear platos que cuentan la historia de Antioquia. Cada visita es única,
+        cada bocado, un recuerdo.
+        </p>
+        <a href="{% url 'Servicios' %}" class="az-link">Conocer más &rarr;</a>
+    </div>
+    <div class="az-welcome__image">
+        <div class="az-welcome__img-frame">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Plato estrella de Azotea">
+        <div class="az-welcome__img-badge">
+            <span class="az-welcome__img-badge-num">12</span>
+            <span class="az-welcome__img-badge-txt">años de<br>experiencia</span>
+        </div>
+        </div>
+    </div>
+    <div class="az-welcome__deco az-welcome__deco--right">&#8212;</div>
+    </section>
+    
+    <!-- ===== STATS ===== -->
+    <section class="az-stats">
+    <div class="az-stats__item">
+        <span class="az-stats__num" data-target="48">0</span>
+        <span class="az-stats__label">Platos en carta</span>
+    </div>
+    <div class="az-stats__divider"></div>
+    <div class="az-stats__item">
+        <span class="az-stats__num" data-target="120">0</span>
+        <span class="az-stats__label">Mesas disponibles</span>
+    </div>
+    <div class="az-stats__divider"></div>
+    <div class="az-stats__item">
+        <span class="az-stats__num" data-target="6">0</span>
+        <span class="az-stats__label">Chefs especializados</span>
+    </div>
+    <div class="az-stats__divider"></div>
+    <div class="az-stats__item">
+        <span class="az-stats__num" data-target="98">0</span>
+        <span class="az-stats__label">% satisfacción</span>
+    </div>
+    </section>
+    
+    <!-- ===== MENÚ DESTACADO ===== -->
+    <section class="az-menu" id="menu">
+    <div class="az-menu__header">
+        <span class="az-label">Lo mejor de la casa</span>
+        <h2 class="az-section-title">Platos Destacados</h2>
+    </div>
+    <div class="az-menu__grid">
+    {% if platos %}
+        {% for plato in platos %}
+        <div class="az-card">
+            <div class="az-card__img-wrap">
+                {% if plato.imagen %}
+                    <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}" class="az-card__img">
+                {% else %}
+                    <div class="az-card__img-placeholder">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                {% endif %}
+                <span class="az-card__tag">{{ plato.categoria.nombre }}</span>
+            </div>
+            <div class="az-card__body">
+                <div class="az-card__top">
+                    <h3 class="az-card__name">{{ plato.nombre }}</h3>
+                    <span class="az-card__price">${{ plato.precio|floatformat:0 }}</span>
+                </div>
+                <p class="az-card__desc">{{ plato.descripcion }}</p>
+                <br>
+                <a href="/menu/plato/{{ plato.id }}" class="az-menu-card__pedir">
+                Ver detalle <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <!-- Si no hay platos en la BD muestra cards de ejemplo -->
+        <div class="az-card">
+            <div class="az-card__img-wrap">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Plato" class="az-card__img">
+                <span class="az-card__tag">Estrella</span>
+            </div>
+            <div class="az-card__body">
+                <div class="az-card__top">
+                    <h3 class="az-card__name">Bandeja Paisa Gourmet</h3>
+                    <span class="az-card__price">$38.000</span>
+                </div>
+                <p class="az-card__desc">Reinterpretación de la bandeja tradicional con ingredientes premium.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</section>
+    
+    <!-- ===== IMAGEN PARALLAX ===== -->
+    <section class="az-parallax">
+    <div class="az-parallax__overlay"></div>
+    <div class="az-parallax__content">
+        <p class="az-label az-label--light">Una vista inigualable</p>
+        <h2 class="az-parallax__title">Cena bajo<br>las estrellas</h2>
+        <p class="az-parallax__sub">Terraza abierta con vista panorámica al Valle de Aburrá</p>
+    </div>
+    </section>
+    
+    <!-- ===== RESERVAS ===== -->
+    <section class="az-reservas" id="reservas">
+    <div class="az-reservas__info">
+        <span class="az-label">¿Vienes a visitarnos?</span>
+        <h2 class="az-section-title">Haz tu<br>reservación</h2>
+        <ul class="az-reservas__details">
+        <li><i class="fas fa-clock"></i> Lun – Vie: 12:00 pm – 10:00 pm</li>
+        <li><i class="fas fa-clock"></i> Sáb – Dom: 11:00 am – 11:00 pm</li>
+        <li><i class="fas fa-map-marker-alt"></i> Calle 10 #43E-31, El Poblado, Medellín</li>
+        <li><i class="fas fa-phone"></i> +57 604 444 5566</li>
+        </ul>
+    </div>
+    <div class="az-reservas__form-wrap">
+        <form class="az-form" method="POST" action="{% url 'Home' %}">
+        {% csrf_token %}
+        <div class="az-form__row">
+            <div class="az-form__group">
+            <label class="az-form__label">Nombre completo</label>
+            <input type="text" name="nombre" class="az-form__input" placeholder="Tu nombre" required>
+            </div>
+            <div class="az-form__group">
+            <label class="az-form__label">Teléfono</label>
+            <input type="tel" name="telefono" class="az-form__input" placeholder="300 000 0000" required>
+            </div>
+        </div>
+        <div class="az-form__row">
+            <div class="az-form__group">
+            <label class="az-form__label">Fecha</label>
+            <input type="date" name="fecha" class="az-form__input" required>
+            </div>
+            <div class="az-form__group">
+            <label class="az-form__label">Hora</label>
+            <input type="time" name="hora" class="az-form__input" required>
+            </div>
+        </div>
+        <div class="az-form__row">
+            <div class="az-form__group">
+            <label class="az-form__label">Número de personas</label>
+            <select name="personas" class="az-form__input">
+                <option value="1">1 persona</option>
+                <option value="2" selected>2 personas</option>
+                <option value="3">3 personas</option>
+                <option value="4">4 personas</option>
+                <option value="5">5+ personas</option>
+            </select>
+            </div>
+            <div class="az-form__group">
+            <label class="az-form__label">Email</label>
+            <input type="email" name="email" class="az-form__input" placeholder="tu@email.com">
+            </div>
+        </div>
+        <div class="az-form__group az-form__group--full">
+            <label class="az-form__label">Ocasión especial (opcional)</label>
+            <textarea name="nota" class="az-form__input az-form__textarea" placeholder="Cumpleaños, aniversario, reunión de negocios..."></textarea>
+        </div>
+        <button type="submit" class="az-btn az-btn--primary az-btn--full">Confirmar Reserva</button>
+        </form>
+        {% if reservado %}
+        <div style="color:green; margin-top:1rem; text-align:center;">
+            <h4>✅ ¡Reserva confirmada! Te contactaremos pronto.</h4>
+        </div>
+        {% endif %}
+    </div>
+    </section>
+    
+    <!-- ===== TESTIMONIOS ===== -->
+    <section class="az-testimonios">
+    <div class="az-testimonios__header">
+        <span class="az-label">Lo que dicen nuestros clientes</span>
+        <h2 class="az-section-title">Experiencias</h2>
+    </div>
+    <div class="az-testimonios__grid">
+        <div class="az-testcard">
+        <div class="az-testcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="az-testcard__text">"La bandeja paisa gourmet es simplemente espectacular. Una experiencia que no se olvida. Volveremos pronto."</p>
+        <div class="az-testcard__author">
+            <div class="az-testcard__avatar">CM</div>
+            <div>
+            <strong>Carlos M.</strong>
+            <span>Medellín</span>
+            </div>
+        </div>
+        </div>
+        <div class="az-testcard az-testcard--featured">
+        <div class="az-testcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="az-testcard__text">"La vista desde la terraza y la calidad de los platos hacen de Azotea el mejor restaurante de El Poblado. Muy recomendado."</p>
+        <div class="az-testcard__author">
+            <div class="az-testcard__avatar">LP</div>
+            <div>
+            <strong>Laura P.</strong>
+            <span>Bogotá</span>
+            </div>
+        </div>
+        </div>
+        <div class="az-testcard">
+        <div class="az-testcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="az-testcard__text">"Servicio impecable, ambiente increíble y la costilla ahumada es de otro nivel. Ya tenemos nuestra reserva para el próximo mes."</p>
+        <div class="az-testcard__author">
+            <div class="az-testcard__avatar">JR</div>
+            <div>
+            <strong>Julián R.</strong>
+            <span>Envigado</span>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+{% endblock %}

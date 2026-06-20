@@ -1,0 +1,154 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Menú — Azotea Rooftop{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO ===== -->
+<section class="az-page-hero">
+    <div class="az-page-hero__bg" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80');"></div>
+    <div class="az-page-hero__overlay"></div>
+    <div class="az-page-hero__content">
+        <p class="az-label az-label--light">Cocina de autor</p>
+        <h1 class="az-page-hero__title">Nuestra<br><span>Carta</span></h1>
+        <p class="az-page-hero__sub">Ingredientes locales, técnicas modernas, sabor auténtico</p>
+    </div>
+    <div class="az-page-hero__breadcrumb">
+        <a href="{% url 'Home' %}">Inicio</a>
+        <span>/</span>
+        <span>Menú</span>
+    </div>
+</section>
+
+<!-- ===== INTRO ===== -->
+<section class="az-sv-intro">
+    <div class="az-sv-intro__line"></div>
+    <div class="az-sv-intro__text">
+        <span class="az-label">Lo que preparamos para ti</span>
+        <h2 class="az-section-title">Cada plato,<br>una historia</h2>
+        <p>Nuestro chef ejecutivo diseña cada plato con ingredientes frescos de temporada, combinando lo mejor de la cocina antioqueña con técnicas de autor para crear una experiencia gastronómica única.</p>
+    </div>
+    <div class="az-sv-intro__line"></div>
+</section>
+
+<!-- ===== FILTRO POR CATEGORÍAS ===== -->
+<section class="az-menu-section">
+
+    {% if categorias %}
+    <div class="az-sv-filtros">
+        <button class="az-filtro-btn active" data-filtro="todos">
+            <i class="fas fa-th"></i> Todos
+        </button>
+        {% for categoria in categorias %}
+        <button class="az-filtro-btn" data-filtro="cat-{{ categoria.id }}">
+            {% if categoria.icono %}
+                <i class="{{ categoria.icono }}"></i>
+            {% endif %}
+            {{ categoria.nombre }}
+        </button>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ===== PLATOS DESDE LA BD ===== -->
+    {% if platos %}
+        <div class="az-menu-grid" id="platosGrid">
+            {% for plato in platos %}
+            <div class="az-menu-card" data-categoria="cat-{{ plato.categoria.id }}">
+
+                <!-- Imagen -->
+                <div class="az-menu-card__img-wrap">
+                    {% if plato.imagen %}
+                        <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}" class="az-menu-card__img">
+                    {% else %}
+                        <div class="az-menu-card__img-placeholder">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                    {% endif %}
+                    <span class="az-menu-card__categoria">{{ plato.categoria.nombre }}</span>
+                    {% if not plato.disponible %}
+                        <span class="az-menu-card__agotado">Agotado</span>
+                    {% endif %}
+                </div>
+
+                <!-- Cuerpo -->
+                <div class="az-menu-card__body">
+                    <div class="az-menu-card__top">
+                        <h3 class="az-menu-card__nombre">{{ plato.nombre }}</h3>
+                        <span class="az-menu-card__precio">${{ plato.precio|floatformat:0 }}</span>
+                    </div>
+                    <p class="az-menu-card__desc">{{ plato.descripcion }}</p>
+                    <div class="az-menu-card__footer">
+                        <span class="az-menu-card__estado {% if plato.disponible %}disponible{% else %}agotado{% endif %}">
+                            {% if plato.disponible %}
+                                <i class="fas fa-check-circle"></i> Disponible
+                            {% else %}
+                                <i class="fas fa-times-circle"></i> Agotado
+                            {% endif %}
+                        </span>
+                        <a href="/menu/plato/{{ plato.id }}" class="az-menu-card__pedir">
+                            Ver detalle <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Contador de resultados -->
+        <p class="az-menu-count" id="menuCount">
+            {{ platos|length }} plato{% if platos|length != 1 %}s{% endif %} en carta
+        </p>
+
+    {% else %}
+        <div class="az-sv-empty">
+            <i class="fas fa-utensils az-sv-empty__icon"></i>
+            <h3 class="az-sv-empty__title">Carta en preparación</h3>
+            <p class="az-sv-empty__text">Estamos actualizando nuestra carta. Vuelve pronto o contáctanos para más información.</p>
+            <a href="{% url 'Contacto' %}" class="az-btn az-btn--primary">Contáctanos</a>
+        </div>
+    {% endif %}
+
+</section>
+
+<!-- ===== INFO ADICIONAL ===== -->
+<section class="az-menu-info">
+    <div class="az-menu-info__item">
+        <i class="fas fa-leaf"></i>
+        <h4>Ingredientes frescos</h4>
+        <p>Trabajamos con proveedores locales de Antioquia para garantizar la mejor calidad.</p>
+    </div>
+    <div class="az-menu-info__item">
+        <i class="fas fa-sync-alt"></i>
+        <h4>Menú de temporada</h4>
+        <p>La carta cambia con las temporadas para ofrecerte siempre lo más fresco.</p>
+    </div>
+    <div class="az-menu-info__item">
+        <i class="fas fa-allergies"></i>
+        <h4>Alergias e intolerancias</h4>
+        <p>Consulta a tu mesero sobre ingredientes. Adaptamos platos según tus necesidades.</p>
+    </div>
+    <div class="az-menu-info__item">
+        <i class="fas fa-concierge-bell"></i>
+        <h4>Servicio personalizado</h4>
+        <p>Nuestro equipo está disponible para recomendarte el maridaje perfecto.</p>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="az-sv-cta">
+    <div class="az-sv-cta__overlay"></div>
+    <div class="az-sv-cta__content">
+        <span class="az-label az-label--light">¿Listo para vivir la experiencia?</span>
+        <h2 class="az-sv-cta__title">Reserva tu mesa<br>hoy mismo</h2>
+        <p class="az-sv-cta__sub">Disponibilidad limitada — te recomendamos reservar con anticipación</p>
+        <div class="az-sv-cta__actions">
+            <a href="{% url 'Home' %}#reservas" class="az-btn az-btn--primary">Reservar mesa</a>
+            <a href="{% url 'Contacto' %}" class="az-btn az-btn--outline">Contáctanos</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

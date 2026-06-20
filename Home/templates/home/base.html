@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Azotea — Restaurante & Bar{% endblock %}</title>
+    <meta name="description" content="Restaurante Azotea - Una experiencia gastronómica en las alturas de Medellín">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="az-nav" id="azNav">
+            <a href="{% url 'Home' %}" class="az-nav__logo">
+                <span class="az-nav__logo-sub">Restaurante &amp; Bar</span>
+                <span class="az-nav__logo-name">Azotea</span>
+            </a>
+            <button class="az-nav__burger" id="azBurger" aria-label="Menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="az-nav__links" id="azNavLinks">
+                <li><a href="{% url 'Home' %}">Home</a></li>
+                <li><a href="{% url 'Servicios' %}">Servicios</a></li>
+                <li><a href="{% url 'Menu' %}">Menu</a></li>
+                <li><a href="{% url 'Blog' %}">Blog</a></li>
+                <li><a href="{% url 'Contacto' %}">Contacto</a></li>
+                <li class="az-nav__login"><a href="{% url 'admin:index' %}">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO DE CADA PÁGINA -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="az-footer">
+        <div class="az-footer__grid">
+
+            <!-- Columna 1 — Marca -->
+            <div>
+                <p class="az-footer__brand-name">Azotea</p>
+                <p class="az-footer__brand-sub">Restaurante &amp; Bar · Medellín</p>
+                <p class="az-footer__brand-desc">
+                    Una propuesta gastronómica de autor con ingredientes locales de temporada,
+                    en la terraza más especial de El Poblado.
+                </p>
+                <div class="az-footer__social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+
+            <!-- Columna 2 — Navegación -->
+            <div>
+                <p class="az-footer__col-title">Menú del sitio</p>
+                <ul class="az-footer__col-links">
+                    <li><a href="{% url 'Home' %}">Inicio</a></li>
+                    <li><a href="{% url 'Servicios' %}">Servicios</a></li>
+                    <li><a href="{% url 'Menu' %}">Carta</a></li>
+                    <li><a href="{% url 'Blog' %}">Blog</a></li>
+                    <li><a href="{% url 'Contacto' %}">Contacto</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3 — Contacto -->
+            <div>
+                <p class="az-footer__col-title">Encuéntranos</p>
+                <div class="az-footer__contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Calle 10 #43E-31<br>El Poblado, Medellín</span>
+                </div>
+                <div class="az-footer__contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+57 604 444 5566</span>
+                </div>
+                <div class="az-footer__contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>hola@azotearestaurante.co</span>
+                </div>
+                <div class="az-footer__contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Lun–Vie: 12pm – 10pm<br>Sáb–Dom: 11am – 11pm</span>
+                </div>
+            </div>
+
+            <!-- Columna 4 — Newsletter -->
+            <div>
+                <p class="az-footer__col-title">Newsletter</p>
+                <p style="font-size:0.85rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:1rem;">
+                    Recibe nuestras novedades, menús de temporada y eventos especiales.
+                </p>
+                <form class="az-footer__newsletter" method="get" action="#">
+                    {% csrf_token %}
+                    <input type="email" name="email_newsletter" placeholder="tu@email.com">
+                    <button type="submit">Suscribir</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Barra inferior -->
+        <div class="az-footer__bottom">
+            <p class="az-footer__copy">&copy; {% now "Y" %} Azotea Restaurante &amp; Bar — Medellín, Colombia</p>
+            <ul class="az-footer__bottom-links">
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Términos de uso</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Blog — Azotea Rooftop{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO ===== -->
+<section class="az-page-hero">
+    <div class="az-page-hero__bg" style="background-image: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=1600&q=80');"></div>
+    <div class="az-page-hero__overlay"></div>
+    <div class="az-page-hero__content">
+        <p class="az-label az-label--light">Noticias & Galería</p>
+        <h1 class="az-page-hero__title">Nuestro<br><span>Blog</span></h1>
+        <p class="az-page-hero__sub">Novedades, eventos y los mejores momentos de Azotea Rooftop</p>
+    </div>
+    <div class="az-page-hero__breadcrumb">
+        <a href="{% url 'Home' %}">Inicio</a>
+        <span>/</span>
+        <span>Blog</span>
+    </div>
+</section>
+
+<!-- ===== NOTICIAS ===== -->
+
+
+<!-- ===== GALERÍA ===== -->
+<section class="az-galeria-section">
+    <div class="az-galeria-section__header">
+        <span class="az-label">Momentos especiales</span>
+        <h2 class="az-section-title">Galería</h2>
+    </div>
+
+    <!-- Filtros galería -->
+    <div class="az-galeria-filtros">
+        <button class="az-filtro-btn active" data-filtro="todos">Todos</button>
+        <button class="az-filtro-btn" data-filtro="ambiente">
+            <i class="fas fa-city"></i> Ambiente
+        </button>
+        <button class="az-filtro-btn" data-filtro="platos">
+            <i class="fas fa-utensils"></i> Platos
+        </button>
+        <button class="az-filtro-btn" data-filtro="eventos">
+            <i class="fas fa-glass-cheers"></i> Eventos
+        </button>
+    </div>
+
+    {% if fotos %}
+        <div class="az-galeria-grid" id="galeriaGrid">
+            {% for foto in fotos %}
+            <div class="az-galeria-item" data-categoria="{{ foto.categoria }}">
+                <img src="{{ foto.imagen.url }}" alt="{{ foto.descripcion }}" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    {% if foto.descripcion %}
+                        <p class="az-galeria-item__desc">{{ foto.descripcion }}</p>
+                    {% endif %}
+                    <span class="az-galeria-item__cat">{{ foto.get_categoria_display }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <!-- Galería con fotos de placeholder si no hay en la BD -->
+        <div class="az-galeria-grid">
+            <div class="az-galeria-item" data-categoria="ambiente">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Ambiente Azotea" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    <p class="az-galeria-item__desc">Vista panorámica del rooftop</p>
+                    <span class="az-galeria-item__cat">Ambiente</span>
+                </div>
+            </div>
+            <div class="az-galeria-item" data-categoria="platos">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Platos" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    <p class="az-galeria-item__desc">Bandeja Paisa Gourmet</p>
+                    <span class="az-galeria-item__cat">Platos</span>
+                </div>
+            </div>
+            <div class="az-galeria-item" data-categoria="eventos">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" alt="Eventos" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    <p class="az-galeria-item__desc">Noche de DJ en la terraza</p>
+                    <span class="az-galeria-item__cat">Eventos</span>
+                </div>
+            </div>
+            <div class="az-galeria-item" data-categoria="platos">
+                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80" alt="Platos" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    <p class="az-galeria-item__desc">Ensalada de temporada</p>
+                    <span class="az-galeria-item__cat">Platos</span>
+                </div>
+            </div>
+            <div class="az-galeria-item" data-categoria="ambiente">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Ambiente" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    <p class="az-galeria-item__desc">Terraza al atardecer</p>
+                    <span class="az-galeria-item__cat">Ambiente</span>
+                </div>
+            </div>
+            <div class="az-galeria-item" data-categoria="eventos">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Eventos" class="az-galeria-item__img">
+                <div class="az-galeria-item__overlay">
+                    <p class="az-galeria-item__desc">Cena de gala</p>
+                    <span class="az-galeria-item__cat">Eventos</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="az-sv-cta">
+    <div class="az-sv-cta__overlay"></div>
+    <div class="az-sv-cta__content">
+        <span class="az-label az-label--light">¿Quieres vivir la experiencia?</span>
+        <h2 class="az-sv-cta__title">Reserva tu noche<br>en Azotea Rooftop</h2>
+        <p class="az-sv-cta__sub">Una vista única del Valle de Aburrá te está esperando</p>
+        <div class="az-sv-cta__actions">
+            <a href="{% url 'Home' %}#reservas" class="az-btn az-btn--primary">Reservar mesa</a>
+            <a href="{% url 'Servicios' %}" class="az-btn az-btn--outline">Ver eventos</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

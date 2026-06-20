@@ -1,0 +1,171 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Contacto — Azotea Rooftop{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO ===== -->
+<section class="az-page-hero">
+    <div class="az-page-hero__bg" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80');"></div>
+    <div class="az-page-hero__overlay"></div>
+    <div class="az-page-hero__content">
+        <p class="az-label az-label--light">Estamos para ti</p>
+        <h1 class="az-page-hero__title">Habla<br><span>con nosotros</span></h1>
+        <p class="az-page-hero__sub">Reservas, eventos, preguntas — con gusto te atendemos</p>
+    </div>
+    <div class="az-page-hero__breadcrumb">
+        <a href="{% url 'Home' %}">Inicio</a>
+        <span>/</span>
+        <span>Contacto</span>
+    </div>
+</section>
+
+<!-- ===== CONTACTO PRINCIPAL ===== -->
+<section class="az-contacto">
+
+    <!-- Info -->
+    <div class="az-contacto__info">
+        <span class="az-label">Información de contacto</span>
+        <h2 class="az-section-title">Visítanos o<br>escríbenos</h2>
+
+        <div class="az-contacto__items">
+            <div class="az-contacto__item">
+                <div class="az-contacto__item-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <h4>Dirección</h4>
+                    <p>Sector Estadio (Obelisco)<br>Medellín, Antioquia</p>
+                </div>
+            </div>
+
+            <div class="az-contacto__item">
+                <div class="az-contacto__item-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                    <h4>Teléfono</h4>
+                    <p>+57 310 849 3148</p>
+                </div>
+            </div>
+
+            <div class="az-contacto__item">
+                <div class="az-contacto__item-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <h4>Email</h4>
+                    <p>hola@azotearooftop.co</p>
+                </div>
+            </div>
+
+            <div class="az-contacto__item">
+                <div class="az-contacto__item-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div>
+                    <h4>Horarios</h4>
+                    <p>Lun – Vie: 12pm – 10pm<br>Sáb – Dom: 11am – 11pm</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="az-contacto__redes">
+            <p class="az-contacto__redes-titulo">Síguenos</p>
+            <div class="az-contacto__redes-links">
+                <a href="https://www.instagram.com/azotearooftop.col/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-tripadvisor"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="az-contacto__form-wrap">
+        <div class="az-contacto__form-header">
+            <span class="az-label">Envíanos un mensaje</span>
+            <h3 class="az-contacto__form-title">¿En qué podemos<br>ayudarte?</h3>
+        </div>
+
+        <form class="az-form az-contacto__form" method="POST" action="{% url 'Contacto' %}">
+            {% csrf_token %}
+
+            <div class="az-form__row">
+                <div class="az-form__group">
+                    <label class="az-form__label">Nombre completo *</label>
+                    <input type="text" name="nombre" class="az-form__input" placeholder="Tu nombre" required>
+                </div>
+                <div class="az-form__group">
+                    <label class="az-form__label">Email *</label>
+                    <input type="email" name="email" class="az-form__input" placeholder="tu@email.com" required>
+                </div>
+            </div>
+
+            <div class="az-form__row">
+                <div class="az-form__group">
+                    <label class="az-form__label">Teléfono</label>
+                    <input type="tel" name="telefono" class="az-form__input" placeholder="300 000 0000">
+                </div>
+                <div class="az-form__group">
+                    <label class="az-form__label">Asunto *</label>
+                    <select name="asunto" class="az-form__input" required>
+                        <option value="" disabled selected>Selecciona un asunto</option>
+                        <option value="Reserva de mesa">Reserva de mesa</option>
+                        <option value="Evento privado">Evento privado</option>
+                        <option value="Catering">Catering</option>
+                        <option value="Chef's Table">Chef's Table</option>
+                        <option value="Información general">Información general</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="az-form__group az-form__group--full">
+                <label class="az-form__label">Mensaje *</label>
+                <textarea name="mensaje" class="az-form__input az-form__textarea" placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
+            </div>
+
+            <button type="submit" class="az-btn az-btn--primary az-btn--full">
+                <i class="fas fa-paper-plane"></i> Enviar mensaje
+            </button>
+        </form>
+
+        <!-- Mensaje de confirmación -->
+        <div class="az-contacto__confirmacion" id="confirmacion" style="display:none;">
+            <i class="fas fa-check-circle"></i>
+            <h4>¡Mensaje enviado!</h4>
+            <p>Gracias por contactarnos. Te responderemos en menos de 24 horas.</p>
+        </div>
+    </div>
+
+</section>
+
+<!-- ===== MAPA ===== -->
+<section class="az-mapa">
+    <div class="az-mapa__overlay">
+        <div class="az-mapa__card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h4>Azotea Rooftop</h4>
+            <p>Sector Estadio (Obelisco)<br>Medellín, Colombia</p>
+            <a href="https://maps.google.com/?q=Obelisco+Estadio+Medellin" target="_blank" class="az-btn az-btn--primary">
+                <i class="fas fa-directions"></i> Cómo llegar
+            </a>
+        </div>
+    </div>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2!2d-75.5849!3d6.2442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTQnMzkuMSJOIDc1wrAzNScwNS42Ilc!5e0!3m2!1ses!2sco!4v1234567890"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</section>
+
+{% endblock %}

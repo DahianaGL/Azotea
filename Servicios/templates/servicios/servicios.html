@@ -1,0 +1,172 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Servicios — Azotea Rooftop{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO ===== -->
+<section class="az-page-hero">
+    <div class="az-page-hero__bg" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80');"></div>
+    <div class="az-page-hero__overlay"></div>
+    <div class="az-page-hero__content">
+        <p class="az-label az-label--light">Vive la experiencia</p>
+        <h1 class="az-page-hero__title">Eventos &<br><span>Servicios</span></h1>
+        <p class="az-page-hero__sub">Noches especiales, DJ sets, brunch dominical y mucho más</p>
+    </div>
+    <div class="az-page-hero__breadcrumb">
+        <a href="{% url 'Home' %}">Inicio</a>
+        <span>/</span>
+        <span>Servicios</span>
+    </div>
+</section>
+
+<!-- ===== INTRO ===== -->
+<section class="az-sv-intro">
+    <div class="az-sv-intro__line"></div>
+    <div class="az-sv-intro__text">
+        <span class="az-label">Más que comer</span>
+        <h2 class="az-section-title">Experiencias que<br>no olvidarás</h2>
+        <p>En Azotea Rooftop cada noche es diferente. Desde cenas íntimas con vista panorámica hasta eventos con DJ en vivo — diseñamos momentos únicos para cada ocasión.</p>
+    </div>
+    <div class="az-sv-intro__line"></div>
+</section>
+
+<!-- ===== EVENTOS DESDE LA BD ===== -->
+<section class="az-sv-grid-section">
+    {% if eventos %}
+        <div class="az-sv-grid">
+            {% for evento in eventos %}
+            <div class="az-sv-card {% if forloop.first %}az-sv-card--featured{% endif %}">
+
+                <!-- Imagen -->
+                {% if evento.imagen %}
+                <div class="az-sv-card__img-wrap">
+                    <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
+                </div>
+                {% else %}
+                <div class="az-sv-card__img-wrap az-sv-card__img-wrap--placeholder">
+                    <i class="fas fa-calendar-star"></i>
+                </div>
+                {% endif %}
+
+                <div class="az-sv-card__icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+
+                <div class="az-sv-card__body">
+                    <span class="az-sv-card__tag">
+                        <i class="fas fa-calendar-alt"></i>
+                        {{ evento.fecha|date:"d M Y" }}
+                    </span>
+                    <h3 class="az-sv-card__title">{{ evento.titulo }}</h3>
+                    <p class="az-sv-card__desc">{{ evento.descripcion }}</p>
+
+                    <ul class="az-sv-card__details">
+                        {% if evento.cupos > 0 %}
+                        <li>
+                            <i class="fas fa-users"></i>
+                            {{ evento.cupos }} cupos disponibles
+                        </li>
+                        {% endif %}
+                        {% if evento.precio %}
+                        <li>
+                            <i class="fas fa-ticket-alt"></i>
+                            Entrada: ${{ evento.precio|floatformat:0 }}
+                        </li>
+                        {% else %}
+                        <li>
+                            <i class="fas fa-ticket-alt"></i>
+                            Entrada libre
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="az-sv-card__footer">
+                        {% if evento.precio %}
+                            <span class="az-sv-card__precio">${{ evento.precio|floatformat:0 }}</span>
+                        {% else %}
+                            <span class="az-sv-card__precio az-sv-card__precio--free">Gratis</span>
+                        {% endif %}
+                        <span class="az-sv-card__disponible {% if evento.activo %}disponible{% else %}agotado{% endif %}">
+                            {% if evento.activo %}
+                                <i class="fas fa-check-circle"></i> Activo
+                            {% else %}
+                                <i class="fas fa-times-circle"></i> Finalizado
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <a href="{% url 'Home' %}#reservas" class="az-sv-card__link">
+                        Reservar lugar <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="az-sv-empty">
+            <i class="fas fa-calendar-alt az-sv-empty__icon"></i>
+            <h3 class="az-sv-empty__title">Próximos eventos</h3>
+            <p class="az-sv-empty__text">Estamos preparando nuevas experiencias. Síguenos en redes o contáctanos para más información.</p>
+            <a href="{% url 'Contacto' %}" class="az-btn az-btn--primary">Contáctanos</a>
+        </div>
+    {% endif %}
+</section>
+
+<!-- ===== SERVICIOS FIJOS ===== -->
+<section class="az-sv-fijos">
+    <div class="az-sv-fijos__header">
+        <span class="az-label">Siempre disponibles</span>
+        <h2 class="az-section-title">Nuestros Servicios</h2>
+    </div>
+    <div class="az-sv-fijos__grid">
+
+        <div class="az-sv-fijo">
+            <div class="az-sv-fijo__icon"><i class="fas fa-utensils"></i></div>
+            <h3 class="az-sv-fijo__title">Restaurante à la Carte</h3>
+            <p class="az-sv-fijo__desc">Carta de autor con ingredientes locales. Platos diseñados por nuestro chef ejecutivo.</p>
+            <p class="az-sv-fijo__horario"><i class="fas fa-clock"></i> Lun–Vie: 12pm – 10pm</p>
+        </div>
+
+        <div class="az-sv-fijo">
+            <div class="az-sv-fijo__icon"><i class="fas fa-wine-glass-alt"></i></div>
+            <h3 class="az-sv-fijo__title">Bar & Cócteles</h3>
+            <p class="az-sv-fijo__desc">Cócteles de autor, vinos seleccionados y spirits premium con vista panorámica.</p>
+            <p class="az-sv-fijo__horario"><i class="fas fa-clock"></i> Sáb–Dom: desde 4pm</p>
+        </div>
+
+        <div class="az-sv-fijo">
+            <div class="az-sv-fijo__icon"><i class="fas fa-briefcase"></i></div>
+            <h3 class="az-sv-fijo__title">Eventos Corporativos</h3>
+            <p class="az-sv-fijo__desc">Sala privada para reuniones de negocios con menú ejecutivo y equipamiento completo.</p>
+            <p class="az-sv-fijo__horario"><i class="fas fa-clock"></i> Lun–Vie: 12pm – 3pm</p>
+        </div>
+
+        <div class="az-sv-fijo">
+            <div class="az-sv-fijo__icon"><i class="fas fa-birthday-cake"></i></div>
+            <h3 class="az-sv-fijo__title">Celebraciones</h3>
+            <p class="az-sv-fijo__desc">Cumpleaños, aniversarios y fechas especiales con decoración y menú personalizado.</p>
+            <p class="az-sv-fijo__horario"><i class="fas fa-calendar-check"></i> Reserva con 7 días</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="az-sv-cta">
+    <div class="az-sv-cta__overlay"></div>
+    <div class="az-sv-cta__content">
+        <span class="az-label az-label--light">¿Tienes una ocasión especial?</span>
+        <h2 class="az-sv-cta__title">Hablemos y lo<br>hacemos realidad</h2>
+        <p class="az-sv-cta__sub">Nuestro equipo está listo para diseñar la experiencia perfecta para ti</p>
+        <div class="az-sv-cta__actions">
+            <a href="{% url 'Contacto' %}" class="az-btn az-btn--primary">Contáctanos</a>
+            <a href="{% url 'Home' %}#reservas" class="az-btn az-btn--outline">Reservar mesa</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

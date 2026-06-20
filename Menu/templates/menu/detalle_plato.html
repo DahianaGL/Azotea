@@ -1,0 +1,60 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}{{ plato.nombre }} — Azotea Rooftop{% endblock %}
+
+{% block content %}
+
+<section class="az-page-hero">
+    <div class="az-page-hero__bg" style="background-image: url('{% if plato.imagen %}{{ plato.imagen.url }}{% else %}https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80{% endif %}');"></div>
+    <div class="az-page-hero__overlay"></div>
+    <div class="az-page-hero__content">
+        <p class="az-label az-label--light">{{ plato.categoria.nombre }}</p>
+        <h1 class="az-page-hero__title">{{ plato.nombre }}</h1>
+        <p class="az-page-hero__sub">{{ plato.descripcion }}</p>
+    </div>
+    <div class="az-page-hero__breadcrumb">
+        <a href="{% url 'Home' %}">Inicio</a>
+        <span>/</span>
+        <a href="{% url 'Menu' %}">Menú</a>
+        <span>/</span>
+        <span>{{ plato.nombre }}</span>
+    </div>
+</section>
+
+<section class="az-detalle">
+    <div class="az-detalle__img">
+        {% if plato.imagen %}
+            <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}">
+        {% else %}
+            <div class="az-detalle__img-placeholder">
+                <i class="fas fa-utensils"></i>
+            </div>
+        {% endif %}
+    </div>
+    <div class="az-detalle__info">
+        <span class="az-label">{{ plato.categoria.nombre }}</span>
+        <h2 class="az-section-title">{{ plato.nombre }}</h2>
+        <p class="az-detalle__desc">{{ plato.descripcion }}</p>
+        <div class="az-detalle__meta">
+            <span class="az-detalle__precio">${{ plato.precio|floatformat:0 }}</span>
+            <span class="az-detalle__estado {% if plato.disponible %}disponible{% else %}agotado{% endif %}">
+                {% if plato.disponible %}
+                    <i class="fas fa-check-circle"></i> Disponible
+                {% else %}
+                    <i class="fas fa-times-circle"></i> Agotado
+                {% endif %}
+            </span>
+        </div>
+        <div class="az-detalle__actions">
+            <a href="https://www.whatsapp.com/" class="az-btn az-btn--primary" target="_blank">
+                <i class="fas fa-concierge-bell"></i> Hacer pedido
+            </a>
+            <a href="{% url 'Menu' %}" class="az-btn az-btn--outline" style="color:var(--az-dark);border-color:var(--az-dark);">
+                ← Volver al menú
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
