@@ -22,3 +22,16 @@ media/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Entorno virtual dentro de azotea
+azotea/Lib/
+azotea/Scripts/
+azotea/Include/
+azotea/pyvenv.cfg
+
+# Forzar inclusión de archivos importantes de azotea
+!azotea/__init__.py
+!azotea/settings.py
+!azotea/urls.py
+!azotea/wsgi.py
+!azotea/asgi.py
