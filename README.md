@@ -19,7 +19,7 @@ Aplicativo web para la gestión de reservas y visualización del menú del resta
 
 ## 👩‍💻 Desarrollado por
 - [Dahiana Gaviria](https://github.com/DahianaGL)
-- Deiber Bedoya
+- [Deiber Bedoya](https://github.com/DeiberBedoya)
 
 ## 🚀 Cómo ejecutar el proyecto localmente
 
