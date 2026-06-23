@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Reserva — Azotea Rooftop</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f0e8;
+            font-family: 'Georgia', serif;
+            color: #1a1a1a;
+        }
+        .wrapper {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #1a1a1a;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #c9a84c;
+            font-size: 28px;
+            margin: 0 0 6px 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .header p {
+            color: #888;
+            font-size: 13px;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .body {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 22px;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        .intro {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        .detalle-titulo {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c9a84c;
+            margin-bottom: 15px;
+            font-family: Arial, sans-serif;
+        }
+        .detalle-box {
+            background-color: #f5f0e8;
+            border-left: 4px solid #c9a84c;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .detalle-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0d8c8;
+            font-size: 15px;
+        }
+        .detalle-item:last-child {
+            border-bottom: none;
+        }
+        .detalle-label {
+            color: #888;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+        }
+        .detalle-valor {
+            color: #1a1a1a;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+        }
+        .nota-box {
+            background-color: #fff8e7;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 30px auto;
+            background-color: #c9a84c;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+        }
+        .footer {
+            background-color: #1a1a1a;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        .footer p {
+            color: #888;
+            font-size: 12px;
+            margin: 4px 0;
+            font-family: Arial, sans-serif;
+        }
+        .footer .gold {
+            color: #c9a84c;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Azotea</h1>
+            <p>Restaurante & Rooftop Bar — Medellín</p>
+        </div>
+
+        <!-- BODY -->
+        <div class="body">
+            <p class="greeting">¡Hola, {{ nombre }}!</p>
+            <p class="intro">
+                Hemos recibido tu solicitud de reserva en <strong>Azotea Rooftop</strong>.
+                Nos pondremos en contacto contigo muy pronto para confirmarla.
+                A continuación encontrarás un resumen de los detalles:
+            </p>
+
+            <p class="detalle-titulo">Detalles de tu reserva</p>
+            <div class="detalle-box">
+                <div class="detalle-item">
+                    <span class="detalle-label">Nombre: </span>
+                    <span class="detalle-valor"> {{ nombre }}</span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Fecha: </span>
+                    <span class="detalle-valor"> {{ fecha }}</span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Hora: </span>
+                    <span class="detalle-valor"> {{ hora }}</span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Personas: </span>
+                    <span class="detalle-valor"> {{ personas }}</span>
+                </div>
+                {% if nota %}
+                <div class="detalle-item">
+                    <span class="detalle-label">Nota: </span>
+                    <span class="detalle-valor"> {{ nota }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if nota %}
+            <div class="nota-box">
+                📝 <strong>Nota especial registrada:</strong> {{ nota }}
+            </div>
+            {% endif %}
+
+            <a href="https://azotea-production.up.railway.app/" class="btn">
+                Ver nuestro sitio web
+            </a>
+
+            <p class="intro" style="text-align:center; font-size:13px;">
+                Si tienes alguna pregunta, escríbenos a
+                <a href="mailto:hola@azotearestaurante.co" style="color:#c9a84c;">
+                    hola@azotearestaurante.co
+                </a>
+            </p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p class="gold">Azotea Rooftop</p>
+            <p>Sector Estadio, Medellín, Colombia</p>
+            <p>+57 604 444 5566</p>
+            <p style="margin-top:12px; font-size:11px; color:#555;">
+                Este correo fue enviado automáticamente, por favor no respondas a este mensaje.
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>
