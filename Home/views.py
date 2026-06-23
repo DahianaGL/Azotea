@@ -17,7 +17,13 @@ def home(request):
 
             #Guardar la reserva en la base de datos
             Reserva.objects.create(
-                nombre=nombre, telefono=telefono, fecha=fecha, hora=hora, personas=personas, email=email, nota=nota, 
+                nombre = nombre, 
+                telefono = telefono, 
+                fecha = fecha, 
+                hora = hora, 
+                personas = personas, 
+                email = email, 
+                nota = nota, 
             )
 
             #Si el cliente escribió su email, le enviamos el correo
@@ -32,16 +38,33 @@ def home(request):
                 #Se le envia el correo
                 send_mail(
                     subject = 'Confirmacion de reserva - Azotea Rooftop',
-                    message = f'Hola{nombre}, tu reserva para el {fecha} a las {hora} fue recibida.',
+                    message = f'Hola {nombre}, tu reserva para el {fecha} a las {hora} fue recibida.',
                     from_email = settings.DEFAULT_FROM_EMAIL,
                     recipient_list = [email],
                     html_message = cuerpo_html,
                     fail_silently = False
                 )
+            
+            if settings.ADMIN_EMAIL_LIST:
+                send_mail(
+                    subject = f'Nueva reserva de {nombre} - Azotea Rooftop',
+                    message = f'''Nueva reserva recibida:
+Nombre: {nombre}
+Teléfono: {telefono or "No proporcionó"}
+Fecha: {fecha}
+Hora: {hora}
+Personas: {personas}
+Email: {email or "No proporcionó"}
+Nota: {nota or "No proporcionó"}''',
+                        
+                    from_email = settings.DEFAULT_FROM_EMAIL,
+                    recipient_list = settings.ADMIN_EMAIL_LIST,
+                    fail_silently = False
+                )
 
             return redirect('Home')
     
-    Platos_destacados = Plato.objects.filter(disponible=True)[:4]
+    platos_destacados = Plato.objects.filter(disponible=True)[:4]
     return render(request, "home/home.html",{
-        "platos": Platos_destacados,
+        "platos": platos_destacados,
     })        

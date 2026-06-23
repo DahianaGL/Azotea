@@ -152,4 +152,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='smtp.gmail.com')
 
-ADMIN_EMAIL_LIST = config('ADMIN_EMAILS').split(',')
+ADMIN_EMAIL_LIST = config('ADMIN_EMAILS', default='').split(',')
