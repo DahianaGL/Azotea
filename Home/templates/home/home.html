@@ -153,20 +153,32 @@
             <div class="az-form__group">
             <label class="az-form__label">Nombre completo</label>
             <input type="text" name="nombre" class="az-form__input" placeholder="Tu nombre" required>
+            {% if form.nombre.errors %}
+                <p style="color:red; font-size:13px;">{{ form.nombre.errors.0 }}</p>
+            {% endif %}
             </div>
             <div class="az-form__group">
             <label class="az-form__label">Teléfono</label>
             <input type="tel" name="telefono" class="az-form__input" placeholder="300 000 0000" required>
+            {% if form.telefono.errors %}
+                <p style="color:red; font-size:13px;">{{ form.telefono.errors.0 }}</p>
+            {% endif %}
             </div>
         </div>
         <div class="az-form__row">
             <div class="az-form__group">
             <label class="az-form__label">Fecha</label>
             <input type="date" name="fecha" class="az-form__input" required>
+            {% if form.fecha.errors %}
+                <p style="color:red; font-size:13px;">{{ form.fecha.errors.0 }}</p>
+            {% endif %}
             </div>
             <div class="az-form__group">
             <label class="az-form__label">Hora</label>
             <input type="time" name="hora" class="az-form__input" required>
+            {% if form.hora.errors %}
+                <p style="color:red; font-size:13px;">{{ form.hora.errors.0 }}</p>
+            {% endif %}
             </div>
         </div>
         <div class="az-form__row">
@@ -183,6 +195,9 @@
             <div class="az-form__group">
             <label class="az-form__label">Email</label>
             <input type="email" name="email" class="az-form__input" placeholder="tu@email.com">
+            {% if form.email.errors %}
+                <p style="color:red; font-size:13px;">{{ form.email.errors.0 }}</p>
+            {% endif %}
             </div>
         </div>
         <div class="az-form__group az-form__group--full">

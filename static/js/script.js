@@ -116,6 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── 12. Scroll automático al formulario si hay errores de validación ── */
+  const formErrors = document.querySelectorAll('.az-form__group p[style*="color:red"]');
+  if (formErrors.length > 0) {
+    document.querySelector('#reservas').scrollIntoView({ behavior: 'smooth' });
+  }
+
 });
 
 /* ── 8. Filtro por categoría en servicios ── */
