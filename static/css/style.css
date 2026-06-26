@@ -2050,4 +2050,11 @@ a    { text-decoration: none; color: inherit; }
     color: var(--az-gray);
 }
 
+.az-form__error {
+    color: #e53935;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    padding-left: 0.2rem;
+}
+
 
