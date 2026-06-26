@@ -2006,5 +2006,48 @@ a    { text-decoration: none; color: inherit; }
     .az-detalle__img-placeholder { height: 280px; }
 }
 
+/* ===== PAGINACIÓN ===== */
+.az-paginacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Agrupa los números en el centro */
+.az-paginacion__numeros {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.az-paginacion__btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--az-gold);
+    color: var(--az-gold);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.az-paginacion__btn:hover {
+    background: var(--az-gold);
+    color: var(--az-dark);
+}
+
+.az-paginacion__btn--active {
+    background: var(--az-gold);
+    color: var(--az-dark);
+}
+
+.az-paginacion__btn--disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border: 2px solid var(--az-gray);
+    color: var(--az-gray);
+}
 
 

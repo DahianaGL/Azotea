@@ -60,6 +60,43 @@
             {% endfor %}
         </div>
 
+        <!-- ===== PAGINACIÓN ===== -->  
+        {% if page_obj.has_other_pages %}
+        <div class="az-paginacion">
+            
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="az-paginacion__btn">
+                    ← Anterior
+                </a>
+            {% else %}
+                <span class="az-paginacion__btn az-paginacion__btn--disabled">
+                    ← Anterior
+                </span>
+            {% endif %}
+            
+            <div>
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="az-paginacion__btn az-paginacion__btn--active">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}" class="az-paginacion__btn">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="az-paginacion__btn">
+                    Siguiente →
+                </a>
+            {% else %}
+                <span class="az-paginacion__btn az-paginacion__btn--disabled">
+                    Siguiente →
+                </span>
+            {% endif %}
+
+        </div>
+        {% endif %}
+
     {% else %}
         <!-- Galería con fotos de placeholder si no hay en la BD -->
         <div class="az-galeria-grid">
