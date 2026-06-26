@@ -32,33 +32,76 @@
     </div>
 
     <!-- Filtros galería -->
-    <div class="az-galeria-filtros">
-        <button class="az-filtro-btn active" data-filtro="todos">Todos</button>
-        <button class="az-filtro-btn" data-filtro="ambiente">
-            <i class="fas fa-city"></i> Ambiente
-        </button>
-        <button class="az-filtro-btn" data-filtro="platos">
-            <i class="fas fa-utensils"></i> Platos
-        </button>
-        <button class="az-filtro-btn" data-filtro="eventos">
-            <i class="fas fa-glass-cheers"></i> Eventos
-        </button>
-    </div>
+        <div class="az-galeria-filtros">
+            <a href="{% url 'Blog' %}"
+            class="az-filtro-btn {% if not categoria %}active{% endif %}">
+                Todos
+            </a>
+            <a href="?categoria=ambiente"
+            class="az-filtro-btn {% if categoria == 'ambiente' %}active{% endif %}">
+                <i class="fas fa-city"></i> Ambiente
+            </a>
+            <a href="?categoria=platos"
+            class="az-filtro-btn {% if categoria == 'platos' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> Platos
+            </a>
+            <a href="?categoria=eventos"
+            class="az-filtro-btn {% if categoria == 'eventos' %}active{% endif %}">
+                <i class="fas fa-glass-cheers"></i> Eventos
+            </a>
+        </div>
 
     {% if fotos %}
         <div class="az-galeria-grid" id="galeriaGrid">
             {% for foto in fotos %}
-            <div class="az-galeria-item" data-categoria="{{ foto.categoria }}">
-                <img src="{{ foto.imagen.url }}" alt="{{ foto.descripcion }}" class="az-galeria-item__img">
-                <div class="az-galeria-item__overlay">
-                    {% if foto.descripcion %}
-                        <p class="az-galeria-item__desc">{{ foto.descripcion }}</p>
-                    {% endif %}
-                    <span class="az-galeria-item__cat">{{ foto.get_categoria_display }}</span>
+                <div class="az-galeria-item" data-categoria="{{ foto.categoria }}">
+                    <img src="{{ foto.imagen.url }}" alt="{{ foto.descripcion }}" class="az-galeria-item__img">
+                    <div class="az-galeria-item__overlay">
+                        {% if foto.descripcion %}
+                            <p class="az-galeria-item__desc">{{ foto.descripcion }}</p>
+                        {% endif %}
+                        <span class="az-galeria-item__cat">{{ foto.get_categoria_display }}</span>
+                    </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
+
+        <!-- ===== PAGINACIÓN ===== -->
+        {% if page_obj.has_other_pages %}
+        <div class="az-paginacion">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if categoria %}&categoria={{ categoria }}{% endif %}" class="az-paginacion__btn">
+                    ← Anterior
+                </a>
+            {% else %}
+                <span class="az-paginacion__btn az-paginacion__btn--disabled">
+                    ← Anterior
+                </span>
+            {% endif %}
+
+            <div class="az-paginacion__numeros">
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="az-paginacion__btn az-paginacion__btn--active">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}{% if categoria %}&categoria={{ categoria }}{% endif %}" class="az-paginacion__btn">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if categoria %}&categoria={{ categoria }}{% endif %}" class="az-paginacion__btn">
+                    Siguiente →
+                </a>
+            {% else %}
+                <span class="az-paginacion__btn az-paginacion__btn--disabled">
+                    Siguiente →
+                </span>
+            {% endif %}
+
+        </div>
+        {% endif %}
 
     {% else %}
         <!-- Galería con fotos de placeholder si no hay en la BD -->
@@ -107,6 +150,7 @@
             </div>
         </div>
     {% endif %}
+
 </section>
 
 <!-- ===== CTA ===== -->

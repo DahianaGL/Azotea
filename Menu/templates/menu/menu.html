@@ -37,22 +37,25 @@
 
     {% if categorias %}
     <div class="az-sv-filtros">
-        <button class="az-filtro-btn active" data-filtro="todos">
+        <a href="{% url 'Menu' %}"
+            class="az-filtro-btn {% if not categoria_id %}active{% endif %}">
             <i class="fas fa-th"></i> Todos
-        </button>
+        </a>
         {% for categoria in categorias %}
-        <button class="az-filtro-btn" data-filtro="cat-{{ categoria.id }}">
+        <a href="?categoria={{ categoria.id }}"
+            class="az-filtro-btn {% if categoria_id == categoria.id|stringformat:'s' %}active{% endif %}">
             {% if categoria.icono %}
                 <i class="{{ categoria.icono }}"></i>
             {% endif %}
             {{ categoria.nombre }}
-        </button>
+        </a>
         {% endfor %}
     </div>
     {% endif %}
 
     <!-- ===== PLATOS DESDE LA BD ===== -->
     {% if platos %}
+
         <div class="az-menu-grid" id="platosGrid">
             {% for plato in platos %}
             <div class="az-menu-card" data-categoria="cat-{{ plato.categoria.id }}">
@@ -101,6 +104,43 @@
         <p class="az-menu-count" id="menuCount">
             {{ platos|length }} plato{% if platos|length != 1 %}s{% endif %} en carta
         </p>
+
+        <!-- ===== PAGINACIÓN ===== -->
+        {% if page_obj.has_other_pages %}
+        <div class="az-paginacion">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}" class="az-paginacion__btn">
+                    ← Anterior
+                </a>
+            {% else %}
+                <span class="az-paginacion__btn az-paginacion__btn--disabled">
+                    ← Anterior
+                </span>
+            {% endif %}
+
+            <div class="az-paginacion__numeros">
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="az-paginacion__btn az-paginacion__btn--active">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}" class="az-paginacion__btn">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}" class="az-paginacion__btn">
+                    Siguiente →
+                </a>
+            {% else %}
+                <span class="az-paginacion__btn az-paginacion__btn--disabled">
+                    Siguiente →
+                </span>
+            {% endif %}
+
+        </div>
+        {% endif %}
 
     {% else %}
         <div class="az-sv-empty">

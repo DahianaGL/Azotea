@@ -86,7 +86,7 @@
     </div>
 
     <!-- Formulario -->
-    <div class="az-contacto__form-wrap">
+    <div class="az-contacto__form-wrap" id="formulario-contacto">
         <div class="az-contacto__form-header">
             <span class="az-label">Envíanos un mensaje</span>
             <h3 class="az-contacto__form-title">¿En qué podemos<br>ayudarte?</h3>
@@ -98,18 +98,27 @@
             <div class="az-form__row">
                 <div class="az-form__group">
                     <label class="az-form__label">Nombre completo *</label>
-                    <input type="text" name="nombre" class="az-form__input" placeholder="Tu nombre" required>
+                    <input type="text" name="nombre" class="az-form__input" placeholder="Tu nombre" value="{{ form.nombre.value|default:'' }}" required>
+                    {% if form.nombre.errors %}
+                        <p class="az-form__error">{{ form.nombre.errors.0 }}</p>
+                    {% endif %}
                 </div>
                 <div class="az-form__group">
                     <label class="az-form__label">Email *</label>
-                    <input type="email" name="email" class="az-form__input" placeholder="tu@email.com" required>
+                    <input type="email" name="email" class="az-form__input" placeholder="tu@email.com" value="{{ form.email.value|default:'' }}" required>
+                    {% if form.email.errors %}
+                        <p class="az-form__error">{{ form.email.errors.0 }}</p>
+                    {% endif %}
                 </div>
             </div>
 
             <div class="az-form__row">
                 <div class="az-form__group">
                     <label class="az-form__label">Teléfono</label>
-                    <input type="tel" name="telefono" class="az-form__input" placeholder="300 000 0000">
+                    <input type="tel" name="telefono" class="az-form__input" placeholder="300 000 0000" value="{{ form.telefono.value|default:'' }}">
+                    {% if form.telefono.errors %}
+                        <p class="az-form__error">{{ form.telefono.errors.0 }}</p>
+                    {% endif %}
                 </div>
                 <div class="az-form__group">
                     <label class="az-form__label">Asunto *</label>
@@ -122,6 +131,9 @@
                         <option value="Información general">Información general</option>
                         <option value="Otro">Otro</option>
                     </select>
+                    {% if form.asunto.errors %}
+                        <p class="az-form__error">{{ form.asunto.errors.0 }}</p>
+                    {% endif %}
                 </div>
             </div>
 
