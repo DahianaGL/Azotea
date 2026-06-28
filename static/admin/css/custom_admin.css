@@ -1,0 +1,62 @@
+/* Navbar superior */
+.main-header.navbar {
+    background-color: #1A1612 !important;
+}
+
+/* Sidebar */
+.main-sidebar, .sidebar {
+    background-color: #1A1612 !important;
+}
+
+/* Links del sidebar */
+.nav-sidebar .nav-link {
+    color: #C9A84C !important;
+}
+
+.nav-sidebar .nav-link:hover,
+.nav-sidebar .nav-link.active {
+    background-color: #C9A84C !important;
+    color: #1A1612 !important;
+}
+
+/* Brand/logo */
+.brand-link {
+    background-color: #1A1612 !important;
+    border-bottom: 1px solid #C9A84C !important;
+    color: #C9A84C !important;
+}
+
+.brand-text {
+    color: #C9A84C !important;
+}
+
+/* Links del dashboard - excepto botones */
+.card-body a:not(.btn) {
+    color: #C9A84C !important;
+}
+
+/* Botones */
+.btn-success, .btn-info, .btn-warning, .btn-danger, .btn-primary {
+    background-color: #C9A84C !important;
+    border-color: #C9A84C !important;
+    color: #1A1612 !important;
+}
+
+/* Texto blanco del contenido principal */
+.content-wrapper {
+    background-color: #1e1e1e !important;
+    color: #f0f0f0 !important;
+}
+
+/* Títulos de las tarjetas */
+.card-title {
+    color: #ffffff !important;
+}
+
+#recent-actions-module h4.mb-3 {
+    color: #C9A84C !important;
+}
+
+.timeline-header a {
+    color: #C9A84C !important;
+}
