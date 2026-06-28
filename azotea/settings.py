@@ -33,6 +33,7 @@ CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -149,3 +150,32 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='smtp.gmail.com')
 
 ADMIN_EMAIL_LIST = config('ADMIN_EMAILS', default='').split(',')
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Azotea Admin",
+    "site_header": "Azotea Rooftop",
+    "site_brand": "Azotea",
+    "welcome_sign": "Bienvenido al panel de Azotea Rooftop",
+    "copyright": "Azotea Rooftop © 2026",
+    "show_ui_builder": False,
+    "topmenu_links": [
+        {"name": "Sitio web", "url": "/", "new_window": False},
+    ],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "Home.reserva": "fas fa-calendar-check",
+        "Menu.plato": "fas fa-utensils",
+        "Menu.categoria": "fas fa-list",
+        "Servicios.evento": "fas fa-star",
+        "Blog.foto": "fas fa-images",
+        "Contacto.contacto": "fas fa-envelope",
+    },
+    "default_icon_parents": "fas fa-folder",
+    "default_icon_children": "fas fa-circle",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
+    "dark_mode_theme": "darkly",
+}
