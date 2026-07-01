@@ -17,6 +17,20 @@ Aplicativo web para la gestión de reservas y visualización del menú del resta
 - Formulario de contacto
 - Panel de administración para gestión del restaurante
 
+## 📸 Capturas de pantalla
+
+### Página de inicio
+![Inicio](docs/screenshots/inicio.png)
+
+### Menú
+![Menú](docs/screenshots/menu.png)
+
+### Servicios
+![Servicios](docs/screenshots/servicios.png)
+
+### Panel de administración
+![Admin](docs/screenshots/admin.png)
+
 ## 👩‍💻 Desarrollado por
 - [Dahiana Gaviria](https://github.com/DahianaGL)
 - [Deiber Bedoya](https://github.com/DeiberBedoya)
